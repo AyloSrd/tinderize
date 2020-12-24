@@ -4,11 +4,11 @@
 	export let height
 	export let faceBoxData
 
-	
-	let top = Number(faceBoxData.region_info.bounding_box.top_row)*height
-	let left = Number(faceBoxData.region_info.bounding_box.left_col)*width
-	let boxWidth = (Number(faceBoxData.region_info.bounding_box.right_col) - Number(faceBoxData.region_info.bounding_box.left_col))*width
-	let boxHeight = (Number(faceBoxData.region_info.bounding_box.bottom_row) - Number(faceBoxData.region_info.bounding_box.top_row))*height
+	const boxDetails = faceBoxData.region_info.bounding_box
+	const top = Number(boxDetails.top_row)*height
+	const left = Number(boxDetails.left_col)*width
+	const boxWidth = (Number(boxDetails.right_col) - Number(boxDetails.left_col))*width
+	const boxHeight = (Number(boxDetails.bottom_row) - Number(boxDetails.top_row))*height
 	
 	console.log(top)
 	
