@@ -1,17 +1,16 @@
 <script>
-
 	export let width
 	export let height
 	export let faceBoxData
 
 	const boxDetails = faceBoxData.region_info.bounding_box
+
 	const top = Number(boxDetails.top_row)*height
 	const left = Number(boxDetails.left_col)*width
 	const boxWidth = (Number(boxDetails.right_col) - Number(boxDetails.left_col))*width
-	const boxHeight = (Number(boxDetails.bottom_row) - Number(boxDetails.top_row))*height
+	const boxHeight = (Number(boxDetails.bottom_row) - Number(boxDetails.top_row))*height	
 	
-	console.log(top)
-	
+	const style = `position: absolute; top: ${top}px; left: ${left}px; height: ${boxHeight}px; width: ${boxWidth}px; z-index:5000;`
 </script>
 <style>
 	.faceBox {
@@ -25,5 +24,5 @@
 </style>
 <div 
 	class="faceBox"
-	style="position: absolute; top: {top}px; left: {left}px; height: {boxHeight}px; width: {boxWidth}px; z-index:5000;"
+	{ style }
 ></div>
