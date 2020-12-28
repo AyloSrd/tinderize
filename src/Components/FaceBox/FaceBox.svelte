@@ -1,28 +1,110 @@
 <script>
+	import { image } from '../../imageStore'
+
 	export let width
 	export let height
 	export let faceBoxData
+	let boxH
+	let showButtons = false
+
+	const src = './smiley.png'
 
 	const boxDetails = faceBoxData.region_info.bounding_box
 
-	const top = Number(boxDetails.top_row)*height
-	const left = Number(boxDetails.left_col)*width
-	const boxWidth = (Number(boxDetails.right_col) - Number(boxDetails.left_col))*width
-	const boxHeight = (Number(boxDetails.bottom_row) - Number(boxDetails.top_row))*height	
+	const id = faceBoxData.id
+	$: top = Number(boxDetails.top_row)*height
+	$: left = Number(boxDetails.left_col)*width
+	$: boxWidth = (Number(boxDetails.right_col) - Number(boxDetails.left_col))*width
+	$: boxHeight = (Number(boxDetails.bottom_row) - Number(boxDetails.top_row))*height	
 	
-	const style = `position: absolute; top: ${top}px; left: ${left}px; height: ${boxHeight}px; width: ${boxWidth}px; z-index:5000;`
+	$: style = `position: absolute; top: ${top}px; left: ${left}px; height: ${boxHeight}px; width: ${boxWidth}px; z-index:5000;`
+
+	const close = () => {
+		const faceboxes = $image.boxes.filter(box => box.id !== id)
+		image.setBoxes(faceboxes)
+	}
+
+	const handleMouseEnter = () => {
+		showButtons= true;
+	}
+	const handleMouseLeave = () => {
+		showButtons= false;
+	}
 </script>
 <style>
 	.faceBox {
-		box-shadow: 0 0 0 3px #149df2 inset;
-		background-color: #149df2;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
 		cursor: pointer;
 	}
+
+	.faceBox img {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+
+	.faceBox .closeBtn {
+		border-radius: 50%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 0;
+		border: none;
+		background-color: #f00;
+		cursor: pointer;
+	}
+
+	.faceBox .closeBtn .removeIcon {
+		color: #fff;
+		position: absolute;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		margin-left: -40%;
+		margin-top: -5%;
+		cursor: pointer;
+	}
+
+	.faceBox .closeBtn .removeIcon::before {
+		content: '';
+		position: absolute;
+		width: 80%;
+		height: 10%;
+		min-width: 5px;
+		min-height: 2px;
+		background-color: currentColor;
+		-webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+	}
+
+	.faceBox .closeBtn .removeIcon::after {
+		content: '';
+		position: absolute;
+		width: 80%;
+		height: 10%;
+		background-color: currentColor;
+		-webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+	}
 </style>
 <div 
+	bind:clientHeight="{boxH}"
+	on:mouseenter="{handleMouseEnter}"
+	on:mouseleave="{handleMouseLeave}"
 	class="faceBox"
 	{ style }
-></div>
+>	
+	<img { src } alt="face-cover">
+	{#if showButtons}		
+		<button 
+			style="{`width:${boxH*0.3}px; height:${boxH*0.3}px`}"
+			class="closeBtn"
+			on:click="{close}"
+		>
+			<div class="removeIcon"></div>
+		</button>
+	{/if}
+</div>

@@ -6,7 +6,7 @@
 	let height
 
 	$: src = $image.imgUrl
-	$:faceBoxes = $image.boxes
+	$: faceBoxes = $image.boxes
 
 </script>
 <style>
