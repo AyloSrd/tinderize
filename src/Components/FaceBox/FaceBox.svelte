@@ -4,7 +4,6 @@
 	export let width
 	export let height
 	export let faceBoxData
-	let boxH
 	let showButtons = false
 
 	const src = './smiley.png'
@@ -49,6 +48,8 @@
 	.faceBox .closeBtn {
 		border-radius: 50%;
 		position: absolute;
+		height: 20px;
+		width: 20px;
 		top: 0;
 		right: 0;
 		padding: 0;
@@ -63,18 +64,16 @@
 		margin: 0;
 		width: 100%;
 		height: 100%;
-		margin-left: -40%;
-		margin-top: -5%;
+		margin-left: -35%;
+		margin-top: -10%;
 		cursor: pointer;
 	}
 
 	.faceBox .closeBtn .removeIcon::before {
 		content: '';
 		position: absolute;
-		width: 80%;
-		height: 10%;
-		min-width: 5px;
-		min-height: 2px;
+		width: 70%;
+		height: 20%;
 		background-color: currentColor;
 		-webkit-transform: rotate(45deg);
           transform: rotate(45deg);
@@ -83,15 +82,14 @@
 	.faceBox .closeBtn .removeIcon::after {
 		content: '';
 		position: absolute;
-		width: 80%;
-		height: 10%;
+		width: 70%;
+		height: 20%;
 		background-color: currentColor;
 		-webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
 	}
 </style>
 <div 
-	bind:clientHeight="{boxH}"
 	on:mouseenter="{handleMouseEnter}"
 	on:mouseleave="{handleMouseLeave}"
 	class="faceBox"
@@ -100,7 +98,6 @@
 	<img { src } alt="face-cover">
 	{#if showButtons}		
 		<button 
-			style="{`width:${boxH*0.3}px; height:${boxH*0.3}px`}"
 			class="closeBtn"
 			on:click="{close}"
 		>

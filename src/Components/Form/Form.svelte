@@ -8,8 +8,8 @@
 		apiEndpoint: 'https://api.clarifai.com'
 	})
 
-	let imgUrl
-	//$: toBeConsoled = $image.imgUrl
+	let imgUrl = 'https://media.gqitalia.it/photos/5caaecab8f8fd798887e394c/master/w_1996,c_limit/GettyImages-480403189.jpg'
+
 	const handleSubmit = () => {
 			image.setImgUrl(imgUrl)
 			app.models
@@ -33,16 +33,47 @@
 	}
 </script>
 <style>
+	.container {
+		width: 100vw;
+		max-width: 100%;
+		display: flex;
+		justify-content: center;
+		margin: 10vh 0 20px;
+	}
 
+	.container .Form {
+		width: 100%;
+		max-width: 600px;
+		padding: 0 20px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.container .Form .inputField {
+		flex-grow: 1;
+	}
+
+	.container .Form .btn {
+		border: none;
+		color: white;
+		background: rgb(192,0,0);
+		background: linear-gradient(45deg, rgba(192,0,0,1) 15%, rgba(255,0,0,1) 78%);
+	}
 </style>
-<div>
-	<form  on:submit|preventDefault="{handleSubmit}">
+<div class="container">
+	<form  
+		class="Form"
+		on:submit|preventDefault="{handleSubmit}"
+	>
 		<input 
+			class="inputField"
 			type="text"
 			bind:value="{imgUrl}"
 		/>
 		<input 
+			class="btn"
 			type="submit"
+			value="Tinderize!"
 		/>
 	</form>
 </div>
